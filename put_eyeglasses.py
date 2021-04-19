@@ -53,10 +53,10 @@ class Optician:
         glasses.paste(glasses_right, (glasses_left.width, 0), glasses_right)
 
         # ROTATION
-        # left_eye = extract_left_eye_center(landmarks)
-        # right_eye = extract_right_eye_center(landmarks)
-        left_eye = (landmarks.part(EYE_LIMIT_L).x, landmarks.part(EYE_LIMIT_L).y)
-        right_eye = (landmarks.part(EYE_LIMIT_R).x, landmarks.part(EYE_LIMIT_R).y)
+        left_eye = extract_left_eye_center(landmarks)
+        right_eye = extract_right_eye_center(landmarks)
+        # left_eye = (landmarks.part(EYE_LIMIT_L).x, landmarks.part(EYE_LIMIT_L).y)
+        # right_eye = (landmarks.part(EYE_LIMIT_R).x, landmarks.part(EYE_LIMIT_R).y)
         angle = angle_between_2_points(left_eye, right_eye)
         glasses = glasses.rotate(angle, expand=True)
         radian = angle * np.pi / 18
@@ -95,13 +95,14 @@ if __name__ == "__main__":
             for i, det in enumerate(dets):
                 det = correct_detection(det, img_gray)
                 ldmrks = predictor(img_gray, det)
-                face = optician.put_eyeglasses(img_color, ldmrks)
-                face = np.array(face)
                 left_eye = extract_left_eye_center(ldmrks)
                 right_eye = extract_right_eye_center(ldmrks)       
                 M = get_rotation_matrix(left_eye, right_eye)
-                rotated = cv2.warpAffine(face, M, (face.shape[1], face.shape[0]), flags=cv2.INTER_CUBIC)
-                cropped = crop_image(rotated, det)
+                rotated = cv2.warpAffine(img_color, M, (img_color.shape[1], img_color.shape[0]), flags=cv2.INTER_CUBIC)
+                ldmrks = predictor(img_gray, det)
+                face = optician.put_eyeglasses(img_color, ldmrks)
+                face = np.array(face)
+                cropped = crop_image(face, det)
                 if i > 0:
                     save_path = os.path.join(output_subdir, img.split('.')[0], "_{}.jpg".format(i))
                     duplicate.add(save_path)
