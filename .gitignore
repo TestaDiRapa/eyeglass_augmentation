@@ -127,3 +127,9 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+# Dlib files
+dlib/**
+
+# Output folders
+output/**
