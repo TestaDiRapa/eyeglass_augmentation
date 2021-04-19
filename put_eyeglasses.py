@@ -93,7 +93,7 @@ if __name__ == "__main__":
             dets = detector(img_gray)
             if len(dets) == 0:
                 no_face.add(img_path)
-                pickle.dump(no_face, open("no_face_detected.pkl", "wb"))
+                pickle.dump(no_face, open(os.path.join("utils", "no_face_detected.pkl"), "wb"))
                 
             for i, det in enumerate(dets):
                 det = correct_detection(det, img_gray)
@@ -108,7 +108,7 @@ if __name__ == "__main__":
                 if i > 0:
                     save_path = os.path.join(output_subdir, img.split('.')[0], "_{}.jpg".format(i))
                     duplicate.add(save_path)
-                    pickle.dump(duplicate, open("face_duplicate.pkl", "wb"))
+                    pickle.dump(duplicate, open(os.path.join("utils", "face_duplicate.pkl"), "wb"))
                 else:
                     save_path = os.path.join(output_subdir, img)
                 cv2.imwrite(save_path, cropped)
