@@ -72,9 +72,6 @@ class Optician:
 if __name__ == "__main__":
     optician = Optician("glasses")
 
-
-    # input_dir = "D:\\Documenti HDD\\GitHub\\AgeEstimationFramework\\dataset\\vggface2_data\\train"
-    # output_dir = "train_eyeglasses"
     input_dir = sys.argv[1]
     output_dir = os.path.join("output", sys.argv[2])
     no_face = set()
