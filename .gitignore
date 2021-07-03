@@ -132,4 +132,7 @@ dmypy.json
 dlib/**
 
 # Output folders
+dataset/**
 output/**
+*.pkl
+models/**

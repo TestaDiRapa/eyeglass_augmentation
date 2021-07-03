@@ -1,0 +1,3 @@
+python main.py --base_folder dataset --face_detector csv --glasses True  --output_folder csv_test --partition test --rpy_estimation dump
+python main.py --face_detector dlib --output_folder csv_test --partition test --rpy_estimation hopenet --mode meta --meta_filename test.detected.total.csv
+python main.py --face_detector dlib --output_folder flag --partition train --rpy_estimation hopenet --mode meta --meta_filename test.detected.total.csv
